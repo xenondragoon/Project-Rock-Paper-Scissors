@@ -6,7 +6,17 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Rock Paper Scissor</h1>
+    <div class="buttons">
+      <button id="rock">Rock</button>
+      <button id="paper">paper</button>
+      <button id="scissor">scissor</button>
+    </div>
+    <div class="result"></div>
+
     <script>
+      const result = document.querySelector(".result");
+
       let humanscore = 0;
       let computerscore = 0;
       let draw = 0;
@@ -29,14 +39,14 @@
         return choice;
       }
 
-      function getHumanChoice() {
+      /* function getHumanChoice() {
         let humchoice = prompt("please enter your choice");
 
         return humchoice.toLowerCase();
-      }
+      }*/
 
-      function playround() {
-        let human = getHumanChoice();
+      function playRound(human) {
+        //let human = getHumanChoice();
         let computer = getComputerChoice();
 
         if (
@@ -44,19 +54,38 @@
           (human === "scissor" && computer === "paper") ||
           (human === "paper" && computer === "rock")
         ) {
-          return "human";
+          humanscore++;
+          result.textContent = `You Win! ${human} beats ${computer}`;
         } else if (
           (computer === "rock" && human === "scissor") ||
           (computer === "scissor" && human === "paper") ||
           (computer === "paper" && human === "rock")
         ) {
-          return "computer";
+          computerscore++;
+          result.textContent = `You Lose! ${computer} beats ${human}`;
         } else if (human === computer) {
-          return "draw";
+          result.textContent = "It's a tie!";
+
+          checkWinner();
+        }
+        function checkWinner() {
+          if (humanscore === 5) {
+            result.innerHTML = "You Win the Game!";
+          } else if (computerScore === 5) {
+            result.innerHTML = "Computer Wins the Game!";
+          }
         }
       }
 
-      function playgame() {
+      const rockButton = document.getElementById("rock");
+      const paperButton = document.getElementById("paper");
+      const scissorButton = document.getElementById("scissor");
+
+      rockButton.addEventListener("click", () => playRound("rock"));
+      paperButton.addEventListener("click", () => playRound("paper"));
+      scissorButton.addEventListener("click", () => playRound("scissor"));
+
+      /*function playgame() {
         for (let i = 0; i < 5; i++) {
           let result = playround();
           if (result === "draw") {
@@ -75,9 +104,7 @@
         } else {
           console.log("ITS A TIE!!!");
         }
-      }
-
-      playgame();
+      }*/
     </script>
   </body>
 </html>
